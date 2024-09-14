@@ -37,5 +37,5 @@ jobs:
         uses: slackapi/slack-github-action@v1
         with:
           slack-token: ${{ secrets.SLACK_BOT_TOKEN }}
-          channel-id: "C07EC64UVDY"
-          text: Deployment to Netlify has completed with status: ${{ job.status }}
+          channel-id: C07EC64UVDY
+          text: Deployment to Netlify has completed 
