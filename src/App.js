@@ -5,8 +5,7 @@ function App() {
     <div className="App">
       <header className="App-header">
 
-          Learn React
-          nothing
+          vaccume
       </header>
     </div>
   );

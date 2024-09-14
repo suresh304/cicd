@@ -29,9 +29,9 @@ jobs:
 
       - name: Post to Slack channel
         if: always()  # Runs regardless of job success or failure
-        uses: slackapi/slack-github-action@v1
+        uses: slackapi/slack-github-action@v1.14.0
         with:
           channel-id: C07EC64UVDY
-          slack-message: "Deployment to Netlify has completed with status: ${{ job.status }}"
+          slack-message: Deployment to Netlify has completed with status: ${{ job.status }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
