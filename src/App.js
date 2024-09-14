@@ -6,7 +6,7 @@ function App() {
       <header className="App-header">
 
           Learn React
-          <h2>RAM ram..........</h2>
+          nothing
       </header>
     </div>
   );
