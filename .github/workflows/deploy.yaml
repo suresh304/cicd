@@ -29,9 +29,12 @@ jobs:
 
       - name: Post to a Slack channel
         id: slack
-        uses: slackapi/slack-github-action@v1.14.0
+        uses: slackapi/slack-github-action@v1.27.0
         with:
-          channel-id: "C07EC64UVDY"
-          slack-message: "Deployment success!!!!"
+    # Slack channel id, channel name, or user id to post message.
+    # See also: https://api.slack.com/methods/chat.postMessage#channels
+    # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
+          channel-id: 'D07EQRPK4TB'
+         slack-message: "your deployment is successful"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
