@@ -1,3 +1,4 @@
+
 name: Deploy to Netlify and notify Slack
 
 on:
@@ -8,7 +9,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       # Checkout the latest code using updated version
       - name: Checkout code
@@ -26,14 +27,14 @@ jobs:
       - name: Install Netlify CLI
         run: npm install netlify-cli -g
 
-      # Deploy to Netlify using authentication and site ID from secrets
+      # Deploy to Netlify
       - name: Deploy to Netlify
-        run: netlify deploy --prod --dir=build --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
+        run: netlify deploy --prod --dir=build --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }} --message "Automated deployment from GitHub Actions"
         
   slack-notification:
     runs-on: ubuntu-latest
     needs: build-and-deploy
-    
+
     steps:
       # Send Slack notification regardless of success or failure
       - name: Send Slack Notification
@@ -47,3 +48,4 @@ jobs:
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
