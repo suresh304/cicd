@@ -22,16 +22,18 @@ jobs:
       - name: Build React app
         run: npm run build
 
-      # Deploy to Netlify using the updated Netlify CLI
-      - name: Deploy to Netlify
-        run: |
-          npm install netlify-cli -g
-          netlify deploy --prod --dir=build --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
+      # Install Netlify CLI globally
+      - name: Install Netlify CLI
+        run: npm install netlify-cli -g
 
+      # Deploy to Netlify using authentication and site ID from secrets
+      - name: Deploy to Netlify
+        run: netlify deploy --prod --dir=build --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
+        
   slack-notification:
     runs-on: ubuntu-latest
     needs: build-and-deploy
-
+    
     steps:
       # Send Slack notification regardless of success or failure
       - name: Send Slack Notification
