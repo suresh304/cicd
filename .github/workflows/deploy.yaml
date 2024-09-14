@@ -38,4 +38,4 @@ jobs:
         with:
           slack-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: C07EC64UVDY
-          text: Deployment to Netlify has completed 
+          text: Deployment to Netlify has completed with status
