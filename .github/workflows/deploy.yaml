@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: Send Slack Notification
         if: always()  # Runs regardless of job success or failure
-        uses: slackapi/slack-github-action@v2.1.0
+        uses: slackapi/slack-github-action@v1
         with:
           payload: |
             {
