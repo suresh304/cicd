@@ -29,10 +29,9 @@ jobs:
 
       - name: Post to a Slack channel
         id: slack
-        uses: slackapi/slack-github-action@v1.27.0
+        uses: slackapi/slack-github-action@v1.14.0
         with:
           channel-id: "C07EC64UVDY"
-    # For posting a simple plain text message
-          slack-message: "deployed successfully"
+          slack-message: ${{ steps.firebase-deploy.outputs.urls }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
