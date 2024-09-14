@@ -25,12 +25,14 @@ jobs:
       - name: Deploy to Netlify
         run: |
           netlify deploy --prod --dir=build --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }} --message "Automated deployment from GitHub Actions"
-        continue-on-error: true  # Continue the workflow even if this step fails
+        continue-on-error: true # Continue the workflow even if this step fails
 
-      - name: Post to Slack channel
-        if: always()  # Runs regardless of job success or failure
-        run: |
-          curl -X POST -H 'Content-type: application/json' --data '{
-            "channel": "C07EC64UVDY",
-            "text": "Deployment to Netlify has completed with status: ${{ job.status }}."
-          }' ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Post to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          channel-id: "C07EC64UVDY"
+    # For posting a simple plain text message
+          slack-message: "deployed successfully"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
