@@ -29,14 +29,8 @@ jobs:
 
       - name: Post to Slack channel
         if: always()  # Runs regardless of job success or failure
-        uses: actions/http-client@v1
-        with:
-          url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          method: POST
-          headers: |
-            Content-Type: application/json
-          body: |
-            {
-              "channel": "C07EC64UVDY",
-              "text": "Deployment to Netlify has completed with status: ${{ job.status }}."
-            }
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "channel": "C07EC64UVDY",
+            "text": "Deployment to Netlify has completed with status: ${{ job.status }}."
+          }' ${{ secrets.SLACK_WEBHOOK_URL }}
