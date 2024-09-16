@@ -15,7 +15,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 2: Send message to Slack using curl and the Slack API
+    # Step 2: Check if SLACK_BOT_TOKEN is set
+    - name: Verify SLACK_BOT_TOKEN secret
+      run: |
+        if [ -z "${{ secrets.SLACK_BOT_TOKEN }}" ]; then
+          echo "SLACK_BOT_TOKEN is empty or not set"
+        else
+          echo "SLACK_BOT_TOKEN is set correctly"
+        fi
+
+    # Step 3: Send message to Slack using curl and the Slack API
     - name: Send Slack notification
       run: |
         curl -X POST https://slack.com/api/chat.postMessage \
