@@ -1,5 +1,6 @@
-name: Send Notification to Slack
+name: Notify Slack on Push to Main
 
+# Trigger this workflow on push to the 'main' branch
 on:
   push:
     branches:
@@ -10,13 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Step 1: Checkout the repository code
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Send message to Slack
-      uses: slackapi/slack-github-action@v1.23.0
-      with:
-        channel-id: C07EC64UVDY
-        slack-message: "A new push to main branch"
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+    # Step 2: Send message to Slack using curl and the Slack API
+    - name: Send Slack notification
+      run: |
+        curl -X POST https://slack.com/api/chat.postMessage \
+          -H "Authorization: Bearer ${{ secrets.SLACK_BOT_TOKEN }}" \
+          -H "Content-type: application/json" \
+          --data '{
+            "channel": "C07EC64UVDY",   # Replace with your channel ID or channel name
+            "text": "Code has been pushed to the main branch!"
+          }'
