@@ -25,12 +25,11 @@ jobs:
         fi
 
     # Step 3: Send message to Slack using curl and the Slack API
-    - name: Send Slack notification
-      run: |
-        curl -X POST https://slack.com/api/chat.postMessage \
-          -H "Authorization: Bearer ${{ secrets.SLACK_BOT_TOKEN }}" \
-          -H "Content-type: application/json" \
-          --data '{
-            "channel": "C07EC64UVDY",   # Replace with your channel ID or channel name
-            "text": "Code has been pushed to the main branch!"
-          }'
+    - name: Post to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.14.0
+        with:
+          channel-id: "D07EQRPK4TB"
+          slack-message: "your app suresh-cicd has been Deployed successfully. "
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
